@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aptus Pipeline Desk</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<header><h1>Aptus Pipeline Desk</h1><div id="banner"></div></header>
+<section id="lock">
+  <p id="lockMsg"></p>
+  <input id="pass" type="password" placeholder="Passphrase" autocomplete="off">
+  <div id="confirmRow"><input id="pass2" type="password" placeholder="Repeat passphrase" autocomplete="off"></div>
+  <button id="unlockBtn">Unlock</button>
+</section>
+<main id="main" hidden>
+  <nav><button id="navClients">Clients</button><button id="navBackup">Backup</button></nav>
+  <div id="view"></div>
+</main>
+<script type="module" src="app.js"></script>
+</body></html>
