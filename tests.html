@@ -1,0 +1,11 @@
+<!doctype html><meta charset="utf-8"><title>Tests</title><body style="font-family:Arial"><h1>Phase 1 tests</h1><ul id="out"></ul>
+<script type="module">
+import*as cr from './crypto.js';import{FIELDS,newClient,missing}from './vault.js';
+const out=document.getElementById('out');
+const t=async(n,f)=>{let ok=false;try{ok=await f();}catch{}out.innerHTML+=`<li>${ok?'PASS':'FAIL'}: ${n}</li>`;};
+const salt=cr.randomSalt();
+await t('encrypt then decrypt returns the same data',async()=>{cr.setKey(await cr.deriveKey('password1',salt));return(await cr.decrypt(await cr.encrypt({a:1}))).a===1;});
+await t('wrong passphrase cannot decrypt',async()=>{cr.setKey(await cr.deriveKey('password1',salt));const p=await cr.encrypt({a:1});cr.setKey(await cr.deriveKey('wrong',salt));try{await cr.decrypt(p);return false;}catch{return true;}});
+await t('new client is missing every field',()=>missing(newClient()).length===FIELDS.length);
+await t('verified field is no longer missing',()=>{const c=newClient();c.fields.dob={value:'1990-01-01',verified:true};return missing(c).length===FIELDS.length-1;});
+</script></body>
